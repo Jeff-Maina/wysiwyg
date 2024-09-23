@@ -178,9 +178,15 @@ const EditorComp = () => {
             </div>
           </div>
           <div>
-            <button className="bg-green-600 px-2 py-1 rounded">
-              <SendHorizonal size={20} fill="white" className="stroke-white"/>
-            </button>
+            <TooltipWrapper label="Send now" align="center" alignOffset={10}>
+              <button className="bg-green-600 px-2 py-1 rounded">
+                <SendHorizonal
+                  size={20}
+                  fill="white"
+                  className="stroke-white"
+                />
+              </button>
+            </TooltipWrapper>
           </div>
         </div>
       </div>
