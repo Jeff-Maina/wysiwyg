@@ -42,7 +42,7 @@ export default function Home() {
               transition={{
                 duration: 0.2,
               }}
-              className="absolute z-20 left-0 top-[140%] p-3 bg-neutral-200 max-w-sm rounded-lg text-sm text-neutral-700"
+              className="absolute z-20 left-0 top-[140%] p-3 bg-neutral-200/70 max-w-sm rounded-lg text-sm text-neutral-700"
             >
               this is a recreation of slack's message input as a way to learn{" "}
               <b>Tiptap wysiwyg</b>
