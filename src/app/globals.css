@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -15,7 +14,6 @@ body {
 
 @layer base {
   :root {
-
     --background: 0 0% 100%;
 
     --foreground: 0 0% 3.9%;
@@ -67,7 +65,6 @@ body {
     --radius: 0.5rem;
   }
   .dark {
-
     --background: 0 0% 3.9%;
 
     --foreground: 0 0% 98%;
@@ -125,4 +122,18 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* tiptap stuff */
+
+.custom_button {
+  @apply size-7 rounded grid place-items-center text-neutral-400 hover:text-black transition-all;
+}
+
+.is-active {
+  @apply bg-neutral-200 text-black;
+}
+
+.input-link {
+  color: blue !important;
 }
