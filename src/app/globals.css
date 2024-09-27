@@ -130,10 +130,15 @@ body {
   @apply size-7 rounded grid place-items-center text-neutral-400 hover:text-black transition-all;
 }
 
+.bubble_button {
+  @apply size-7 rounded grid place-items-center text-neutral-200 hover:text-neutral-100 hover:bg-neutral-800 transition-all;
+}
 .is-active {
   @apply bg-neutral-200 text-black;
 }
-
+.is-bb-active {
+  @apply bg-neutral-700 text-white;
+}
 .input-link {
   color: blue !important;
 }
