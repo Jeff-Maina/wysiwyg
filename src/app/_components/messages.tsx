@@ -22,12 +22,14 @@ const Messages = ({ messages }: TMessagesProps) => {
           >
             <div
               className={cn(
-                " shrink-0 rounded-lg  from-purple-600 to-green-700",
+                " shrink-0 rounded-lg  from-purple-800 to-purple-400 overflow-hidden",
                 index !== 0
                   ? "bg-transparent w-8 h-6"
                   : "bg-gradient-to-tr size-8"
               )}
-            ></div>
+            >
+
+            </div>
             <div className="flex flex-col gap-1.5 w-full">
               {index === 0 && (
                 <div className="flex items-end gap-1.5">

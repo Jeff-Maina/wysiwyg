@@ -349,7 +349,7 @@ const EditorComp = ({ addNewMessage }: TEditorProps) => {
                 <TooltipWrapper
                   sideOffset={10}
                   label={
-                    formatMenuVisible ? "Show formatting" : "Hide formatting"
+                    !formatMenuVisible ? "Show formatting" : "Hide formatting"
                   }
                   align="center"
                 >

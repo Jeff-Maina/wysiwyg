@@ -31,8 +31,19 @@ export default function Home() {
     <div className="p-4">
       {/* navbar */}
       <div className="relative">
-        <div className="max-w-5xl flex justify-end m-auto w-full">
-          <Link href={"/about"} className="text-sm underline text-neutral-500 hover:text-black">About project</Link>
+        <div className="max-w-5xl flex gap-2 justify-end m-auto w-full">
+          <Link
+            href={"/about"}
+            className="text-sm underline text-neutral-500 hover:text-black"
+          >
+            About project
+          </Link>
+          <a
+            href={"https://github.com/Jeff-Maina/wysiwyg"}
+            className="text-sm underline text-neutral-500 hover:text-black"
+          >
+            Repo
+          </a>
         </div>
         {isAboutVisible ? (
           <div

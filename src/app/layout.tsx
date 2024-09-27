@@ -25,7 +25,7 @@ export default function RootLayout({
         <footer className="fixed w-full flex items-center bottom-0 h-10 z-20">
           <div className="w-full max-w-5xl m-auto">
             <small className="text-neutral-500">
-              Made by  <a className="text-black underline" href="https://github/jeff">Jeff</a>
+              Made by  <a className="text-black underline" href="https://github.com/Jeff-Maina">Jeff</a>
             </small>
           </div>
         </footer>
