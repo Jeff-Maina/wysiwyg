@@ -8,12 +8,17 @@ import Text from "@tiptap/extension-text";
 import Bold from "@tiptap/extension-bold";
 import Strike from "@tiptap/extension-strike";
 import Link from "@tiptap/extension-link";
+import Code from "@tiptap/extension-code";
+import OrderedList from "@tiptap/extension-ordered-list";
+import ListItem from "@tiptap/extension-list-item";
+import Blockquote from "@tiptap/extension-blockquote";
+import Placeholder from "@tiptap/extension-placeholder";
 
 import {
   AtSign,
   Bold as BoldIcon,
   CaseSensitive,
-  Code,
+  Code as CodeIcon,
   Italic,
   Link as LinkIcon,
   List,
@@ -33,6 +38,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import LinkModal from "./link-modal";
+import CodeBlock from "@tiptap/extension-code-block";
 
 const EditorComp = () => {
   const editor = useEditor({
@@ -46,12 +52,15 @@ const EditorComp = () => {
           class: "input-link",
         },
       }),
+      Placeholder.configure({
+        placeholder: "Type a message",
+      }),
     ],
     content: "",
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "min-h-24 outline-none text-neutral-600",
+        class: " outline-none text-neutral-800 text-sm",
       },
     },
   });
@@ -138,7 +147,7 @@ const EditorComp = () => {
         <div className=" w-[35rem] min-h-20 border overflow-hidden rounded-lg">
           {formatMenuVisible ? (
             <div className="flex items-center divide-x p-1.5 bg-neutral-100">
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 px-1.5">
                 <TooltipWrapper sideOffset={10} label="Bold" align="center">
                   <button
                     onClick={() => editor?.chain().focus().toggleBold().run()}
@@ -178,23 +187,31 @@ const EditorComp = () => {
                   </button>
                 </TooltipWrapper>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center px-1.5 gap-1.5">
                 <TooltipWrapper sideOffset={10} label="Link" align="center">
                   <button
                     onClick={openLinkModal}
-                    className="px-3 text-neutral-400 hover:text-black transition-all"
+                    className={cn("custom_button")}
                   >
                     <LinkIcon size={16} />
                   </button>
                 </TooltipWrapper>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center px-1.5 gap-1.5">
                 <TooltipWrapper
                   sideOffset={10}
                   label="Ordered list"
                   align="center"
                 >
-                  <button className="px-3 text-neutral-400 hover:text-black transition-all">
+                  <button
+                    onClick={() =>
+                      editor?.chain().focus().toggleOrderedList().run()
+                    }
+                    className={cn(
+                      "custom_button",
+                      editor?.isActive("orderedList") ? "is-active" : ""
+                    )}
+                  >
                     <ListOrderedIcon size={16} />
                   </button>
                 </TooltipWrapper>
@@ -203,26 +220,49 @@ const EditorComp = () => {
                   label="Bulleted list"
                   align="center"
                 >
-                  <button className="px-3 text-neutral-400 hover:text-black transition-all">
+                  <button
+                    onClick={() =>
+                      editor?.chain().focus().toggleBulletList().run()
+                    }
+                    className={cn(
+                      "custom_button",
+                      editor?.isActive("bulletList") ? "is-active" : ""
+                    )}
+                  >
                     <List size={16} />
                   </button>
                 </TooltipWrapper>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center px-1.5 gap-1.5">
                 <TooltipWrapper
                   sideOffset={10}
                   label="Blockquote"
                   align="center"
                 >
-                  <button className="px-3 text-neutral-400 hover:text-black transition-all">
+                  <button
+                    onClick={() =>
+                      editor?.chain().focus().toggleBlockquote().run()
+                    }
+                    className={cn(
+                      "custom_button",
+                      editor?.isActive("blockquote") ? "is-active" : ""
+                    )}
+                  >
                     <TextQuote size={16} />
                   </button>
                 </TooltipWrapper>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center px-1.5 gap-1.5">
                 <TooltipWrapper sideOffset={10} label="Code" align="center">
-                  <button className="px-3 text-neutral-400 hover:text-black transition-all">
-                    <Code size={16} />
+                  <button
+                    onClick={() => editor?.chain().focus().toggleCode().run()}
+                    className={cn(
+                      "custom_button disabled:text-neutral-300 disabled:cursor-not-allowed",
+                      editor?.isActive("code") ? "is-active" : ""
+                    )}
+                    disabled={editor?.isActive("codeBlock")}
+                  >
+                    <CodeIcon size={16} />
                   </button>
                 </TooltipWrapper>
                 <TooltipWrapper
@@ -230,7 +270,15 @@ const EditorComp = () => {
                   label="Code Block"
                   align="center"
                 >
-                  <button className="px-3 text-neutral-400 hover:text-black transition-all">
+                  <button
+                    onClick={() =>
+                      editor?.chain().focus().toggleCodeBlock().run()
+                    }
+                    className={cn(
+                      "custom_button",
+                      editor?.isActive("codeBlock") ? "is-active" : ""
+                    )}
+                  >
                     <SquareTerminal size={16} />
                   </button>
                 </TooltipWrapper>
@@ -242,7 +290,7 @@ const EditorComp = () => {
             <EditorContent
               autoCorrect="false"
               placeholder="Type something..."
-              className="!min-h-24"
+              className=""
               editor={editor}
             />
           </div>
