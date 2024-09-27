@@ -16,6 +16,21 @@ import Blockquote from "@tiptap/extension-blockquote";
 import Mention from "@tiptap/extension-mention";
 import Placeholder from "@tiptap/extension-placeholder";
 
+const sendSvg = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20px"
+    height="20px"
+    viewBox="0 0 24 24"
+    id="send"
+  >
+    <path
+      className="fill-white"
+      d="M21.66,12a2,2,0,0,1-1.14,1.81L5.87,20.75A2.08,2.08,0,0,1,5,21a2,2,0,0,1-1.82-2.82L5.46,13H11a1,1,0,0,0,0-2H5.46L3.18,5.87A2,2,0,0,1,5.86,3.25h0l14.65,6.94A2,2,0,0,1,21.66,12Z"
+    />
+  </svg>
+);
+
 import {
   AtSign,
   Bold as BoldIcon,
@@ -41,8 +56,13 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import LinkModal from "./link-modal";
 import CodeBlock from "@tiptap/extension-code-block";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-const EditorComp = () => {
+type TEditorProps = {
+  addNewMessage: (message: string) => void;
+};
+
+const EditorComp = ({ addNewMessage }: TEditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -62,7 +82,7 @@ const EditorComp = () => {
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: " outline-none text-neutral-800 text-sm",
+        class: "outline-none text-neutral-800 text-sm max-h-40 overflow-y-auto",
       },
     },
   });
@@ -143,10 +163,22 @@ const EditorComp = () => {
     setHighlighted(false);
   }, [editor, linkText, linkUrl]);
 
+  const sendMessage = () => {
+    const html = editor?.getHTML();
+    addNewMessage(html || "");
+    editor?.commands.clearContent(true);
+  };
   return (
     <>
-      <div>
-        <div className=" w-[35rem] min-h-20 border overflow-hidden rounded-lg">
+      <div className="w-full">
+        <div
+          className={cn(
+            " w-full min-h-20 border  overflow-hidden rounded-lg transition-all",
+            editor?.isFocused
+              ? "border-neutral-400 input-active"
+              : "input-inactive"
+          )}
+        >
           {formatMenuVisible ? (
             <div className="flex items-center divide-x p-1.5 bg-neutral-100">
               <div className="flex items-center gap-1.5 px-1.5">
@@ -157,6 +189,7 @@ const EditorComp = () => {
                       "custom_button",
                       editor?.isActive("bold") ? "is-active" : ""
                     )}
+                    disabled={editor?.isActive("codeBlock")}
                   >
                     <BoldIcon size={16} />
                   </button>
@@ -169,6 +202,7 @@ const EditorComp = () => {
                       "custom_button",
                       editor?.isActive("italic") ? "is-active" : ""
                     )}
+                    disabled={editor?.isActive("codeBlock")}
                   >
                     <Italic size={16} />
                   </button>
@@ -184,6 +218,7 @@ const EditorComp = () => {
                       "custom_button",
                       editor?.isActive("strike") ? "is-active" : ""
                     )}
+                    disabled={editor?.isActive("codeBlock")}
                   >
                     <Strikethrough size={16} />
                   </button>
@@ -194,6 +229,7 @@ const EditorComp = () => {
                   <button
                     onClick={openLinkModal}
                     className={cn("custom_button")}
+                    disabled={editor?.isActive("codeBlock")}
                   >
                     <LinkIcon size={16} />
                   </button>
@@ -288,11 +324,11 @@ const EditorComp = () => {
             </div>
           ) : null}
 
-          <div className="element p-3">
+          <div className="element p-3 ">
             <EditorContent
               autoCorrect="false"
               placeholder="Type something..."
-              className=""
+              className="editor"
               editor={editor}
             />
           </div>
@@ -381,12 +417,11 @@ const EditorComp = () => {
             </div>
             <div>
               <TooltipWrapper label="Send now" align="center" alignOffset={10}>
-                <button className="bg-green-600 px-2 py-1 rounded">
-                  <SendHorizonal
-                    size={20}
-                    fill="white"
-                    className="stroke-white"
-                  />
+                <button
+                  onClick={sendMessage}
+                  className="bg-green-700 px-2 grid place-items-center w-10 h-8 py-1 rounded"
+                >
+                  {sendSvg}
                 </button>
               </TooltipWrapper>
             </div>
@@ -395,12 +430,10 @@ const EditorComp = () => {
           {/* bubble menu */}
           {editor && (
             <BubbleMenu
-            
               className={cn(
                 "-translate-y-2",
-                formatMenuVisible ||
-                  (isLinkModalOpen &&
-                    "hidden pointer-events-none absolute -z-[999]")
+                formatMenuVisible &&
+                  "hidden pointer-events-none absolute -z-[999]"
               )}
               editor={editor}
               tippyOptions={{ duration: 100 }}
@@ -414,6 +447,7 @@ const EditorComp = () => {
                         "bubble_button text-neutral-100",
                         editor?.isActive("bold") ? "is-bb-active" : ""
                       )}
+                      disabled={editor?.isActive("codeBlock")}
                     >
                       <BoldIcon size={16} />
                     </button>
@@ -427,6 +461,7 @@ const EditorComp = () => {
                         "bubble_button text-neutral-100",
                         editor?.isActive("italic") ? "is-bb-active" : ""
                       )}
+                      disabled={editor?.isActive("codeBlock")}
                     >
                       <Italic size={16} />
                     </button>
@@ -444,6 +479,7 @@ const EditorComp = () => {
                         "bubble_button text-neutral-100",
                         editor?.isActive("strike") ? "is-bb-active" : ""
                       )}
+                      disabled={editor?.isActive("codeBlock")}
                     >
                       <Strikethrough size={16} />
                     </button>
@@ -457,6 +493,7 @@ const EditorComp = () => {
                         "bubble_button text-neutral-100",
                         editor?.isActive("link") ? "is-bb-active" : ""
                       )}
+                      disabled={editor?.isActive("codeBlock")}
                     >
                       <LinkIcon size={16} />
                     </button>
@@ -518,7 +555,7 @@ const EditorComp = () => {
                     <button
                       onClick={() => editor?.chain().focus().toggleCode().run()}
                       className={cn(
-                        "bubble_button text-neutral-100 disabled:text-neutral-500 disabled:cursor-not-allowed",
+                        "bubble_button text-neutral-100 ",
                         editor?.isActive("code") ? "is-bb-active" : ""
                       )}
                       disabled={editor?.isActive("codeBlock")}

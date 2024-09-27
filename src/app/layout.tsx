@@ -20,7 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased relative`}>
+        {children}
+        <footer className="fixed w-full flex items-center bottom-0 h-10 z-20">
+          <div className="w-full max-w-5xl m-auto">
+            <small className="text-neutral-500">
+              Made by  <a className="text-black underline" href="https://github/jeff">Jeff</a>
+            </small>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }

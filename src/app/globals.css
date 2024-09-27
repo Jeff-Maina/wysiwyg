@@ -127,11 +127,19 @@ body {
 /* tiptap stuff */
 
 .custom_button {
-  @apply size-7 rounded grid place-items-center text-neutral-400 hover:text-black transition-all;
+  @apply size-7 rounded grid place-items-center  hover:text-black transition-all disabled:!text-neutral-300 disabled:cursor-not-allowed;
+}
+
+.input-inactive .custom_button {
+  @apply text-neutral-400;
+}
+
+.input-active .custom_button {
+  @apply text-neutral-600;
 }
 
 .bubble_button {
-  @apply size-7 rounded grid place-items-center text-neutral-200 hover:text-neutral-100 hover:bg-neutral-800 transition-all;
+  @apply size-7 rounded grid place-items-center text-neutral-200 hover:text-neutral-100 hover:bg-neutral-800 transition-all disabled:text-neutral-500 disabled:cursor-not-allowed;
 }
 .is-active {
   @apply bg-neutral-200 text-black;
@@ -145,6 +153,14 @@ body {
 
 /* List styles */
 
+.tiptap::-webkit-scrollbar {
+  background: transparent;
+  width: 10px;
+}
+.tiptap::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
 .tiptap > ul,
 .tiptap > ol {
   padding: 0 1rem;
@@ -204,4 +220,52 @@ body {
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.messages ol {
+  list-style: decimal;
+  padding-left: 16px;
+}
+
+.messages ul {
+  list-style: disc;
+  padding-left: 16px;
+}
+
+.messages ul > li {
+  @apply !pl-0;
+}
+
+.messages p > code {
+  color: red !important;
+  font-family: monospace;
+  font-size: 0.8rem;
+  border-radius: 0.2rem;
+  line-height: 0.8rem;
+  border: 1px solid #dfdfdf;
+  padding: 0.2rem;
+}
+
+.messages pre {
+  overflow: auto;
+  padding: 0.2rem 0.3rem 0.2rem 0.6rem;
+  border-radius: 0.2rem;
+  border: 1px solid #dddcdc;
+  margin-bottom: 0.3rem;
+}
+
+.messages pre > code {
+  color: #232323;
+  width: 100%;
+  font-family: monospace;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+}
+/* .tiptap {
+  overflow: scroll;
+  max-height: 400px;
+} */
+
+.about-code {
+  @apply bg-yellow-200 text-yellow-900 px-1.5 text-sm;
 }

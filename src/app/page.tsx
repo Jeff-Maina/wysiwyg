@@ -1,54 +1,39 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import EditorComp from "./_components/editor";
 
-const animVariants = {
-  initial: {
-    opacity: 0,
-    y: 10,
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-  },
-  exit: {
-    opacity: 0,
-    y: 20,
-  },
-};
+import Messages from "./_components/messages";
+import Link from "next/link";
+
 export default function Home() {
   const [isAboutVisible, setIsAboutVisible] = useState(false);
+
+  const [messages, setMessages] = useState<{ message: string; time: string }[]>(
+    []
+  );
+
+  const currentTime = () => {
+    const date = new Date();
+    const hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+    const minutes = `0${date.getMinutes()}`.slice(-2);
+    const ampm = date.getHours() >= 12 ? "PM" : "AM";
+    return `${hours}:${minutes}${ampm}`;
+  };
+  const addNewMessage = (message: string) => {
+    const messageObj = {
+      message,
+      time: currentTime(),
+    };
+    setMessages([...messages, messageObj]);
+  };
 
   return (
     <div className="p-4">
       {/* navbar */}
       <div className="relative">
-        <button
-          onClick={(e) => {
-            setIsAboutVisible(!isAboutVisible);
-          }}
-          className="bg-neutral-200 relative z-20 py-1.5 px-4 rounded-lg text-sm font-semibold text-neutral-700 hover:bg-neutral-300 transition-all duration-150 hover:text-black"
-        >
-          About
-        </button>
-        <AnimatePresence mode="wait">
-          {isAboutVisible ? (
-            <motion.div
-              variants={animVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{
-                duration: 0.2,
-              }}
-              className="absolute z-20 left-0 top-[140%] p-3 bg-neutral-200/70 max-w-sm rounded-lg text-sm text-neutral-700"
-            >
-              this is a recreation of slack's message input as a way to learn{" "}
-              <b>Tiptap wysiwyg</b>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+        <div className="max-w-5xl flex justify-end m-auto w-full">
+          <Link href={"/about"} className="text-sm underline text-neutral-500 hover:text-black">About project</Link>
+        </div>
         {isAboutVisible ? (
           <div
             onClick={() => setIsAboutVisible(false)}
@@ -58,8 +43,9 @@ export default function Home() {
       </div>
 
       {/* actual input */}
-      <div className="w-full h-[90vh] mt-4 grid place-items-center">
-        <EditorComp />
+      <div className="w-full rounded-md max-w-5xl h-[90vh] mt-4 m-auto flex flex-col items-center justify-between p-4 border">
+        <Messages messages={messages} />
+        <EditorComp addNewMessage={addNewMessage} />
       </div>
     </div>
   );
