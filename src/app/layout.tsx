@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased relative`}>
         {children}
         <footer className="fixed w-full flex items-center bottom-0 h-10 z-20">
-          <div className="w-full max-w-5xl m-auto">
+          <div className="w-full max-w-5xl m-auto px-4">
             <small className="text-neutral-500">
               Made by  <a className="text-black underline" href="https://github.com/Jeff-Maina">Jeff</a>
             </small>

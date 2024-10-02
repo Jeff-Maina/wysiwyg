@@ -170,7 +170,7 @@ const EditorComp = ({ addNewMessage }: TEditorProps) => {
   };
   return (
     <>
-      <div className="w-full">
+      <div className="w-full px-4">
         <div
           className={cn(
             " w-full min-h-20 border  overflow-hidden rounded-lg transition-all",

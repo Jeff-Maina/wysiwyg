@@ -54,7 +54,7 @@ export default function Home() {
       </div>
 
       {/* actual input */}
-      <div className="w-full rounded-md max-w-5xl h-[90vh] mt-4 m-auto flex flex-col items-center justify-between p-4 border">
+      <div className="w-full rounded-md max-w-5xl h-[90vh] mt-4 m-auto flex flex-col items-center justify-between py-4 border">
         <Messages messages={messages} />
         <EditorComp addNewMessage={addNewMessage} />
       </div>
