@@ -24,12 +24,14 @@ const Messages = ({ messages }: TMessagesProps) => {
             {index === 0 ? (
               <div
                 className={cn(
-                  " shrink-0 rounded-lg  from-purple-800 to-purple-400 overflow-hidden",
+                  " shrink-0 rounded-lg   overflow-hidden grid place-items-center",
                   index !== 0
                     ? "bg-transparent w-10 h-6"
-                    : "bg-gradient-to-tr size-10"
+                    : "bg-blue-500 size-10"
                 )}
-              ></div>
+              >
+                <p className="text-white text-xl font-semibold">J</p>
+              </div>
             ) : (
               <div className="w-10 h-6 text-[10px] opacity-0 group-hover/card:opacity-100  text-neutral-500 flex items-center justify-end">
                 {smallTIme}
