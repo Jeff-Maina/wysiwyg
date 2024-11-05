@@ -1,20 +1,12 @@
 "use client";
 
-import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Document from "@tiptap/extension-document";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
-import Bold from "@tiptap/extension-bold";
-import Strike from "@tiptap/extension-strike";
 import Link from "@tiptap/extension-link";
-import suggestion from "@tiptap/suggestion";
-import Code from "@tiptap/extension-code";
-import OrderedList from "@tiptap/extension-ordered-list";
-import ListItem from "@tiptap/extension-list-item";
-import Blockquote from "@tiptap/extension-blockquote";
-import Mention from "@tiptap/extension-mention";
 import Placeholder from "@tiptap/extension-placeholder";
+import { BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Mention from "@tiptap/extension-mention";
+
+import suggestion from "./mentions/suggestion.js";
 
 const sendSvg = (
   <svg
@@ -31,6 +23,7 @@ const sendSvg = (
   </svg>
 );
 
+import { cn } from "@/lib/utils";
 import {
   AtSign,
   Bold as BoldIcon,
@@ -42,7 +35,6 @@ import {
   ListOrderedIcon,
   Mic,
   Plus,
-  SendHorizonal,
   Smile,
   SquareSlash,
   SquareTerminal,
@@ -50,13 +42,9 @@ import {
   TextQuote,
   Video,
 } from "lucide-react";
-import TooltipWrapper from "./tooltip_wrapper";
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import LinkModal from "./link-modal";
-import CodeBlock from "@tiptap/extension-code-block";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import TooltipWrapper from "./tooltip_wrapper";
 
 type TEditorProps = {
   addNewMessage: (message: string) => void;
@@ -76,6 +64,12 @@ const EditorComp = ({ addNewMessage }: TEditorProps) => {
       }),
       Placeholder.configure({
         placeholder: "Type a message",
+      }),
+      Mention.configure({
+        HTMLAttributes: {
+          class: "mention",
+        },
+        suggestion,
       }),
     ],
     content: "",

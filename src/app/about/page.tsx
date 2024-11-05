@@ -26,7 +26,7 @@ const Page = () => {
           Rich text formatting: support for Bold, Italic, Strikethrough, Lists,
           Inline Code, Code Blocks, and Links.
         </li>
-        <li>Mentions for tagging users. <span className="text-orange-500">( pending )</span></li>
+        <li>Mentions for tagging users.</li>
         <li>
           Bubble menu for quick formatting options when the main toolbar is
           hidden.

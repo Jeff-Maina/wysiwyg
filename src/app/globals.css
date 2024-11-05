@@ -269,3 +269,17 @@ body {
 .about-code {
   @apply bg-yellow-200 text-yellow-900 px-1.5 text-sm;
 }
+
+.mention {
+  @apply text-blue-500 bg-yellow-100 p-0.5;
+}
+
+.custom_scrollbar::-webkit-scrollbar {
+  background: transparent;
+  width: 5px;
+}
+
+.custom_scrollbar::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
